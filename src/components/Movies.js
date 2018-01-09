@@ -2,37 +2,37 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 
-export default class Podcast extends Component {
+export default class Movies extends Component {
   constructor() {
     super();
 
     this.state = {
-      podcasts: []
+      movies: []
     };
   }
   componentDidMount() {
     axios
       .all([
         axios.get(
-          "https://itunes.apple.com/search?term=syntax&entity=podcast&limit=1"
+          "https://itunes.apple.com/search?term=guardians+of+the+galaxy&entity=movie&limit=1"
         )
       ])
       .then(data => {
-        this.setState({ podcasts: data[0].data });
+        this.setState({ movies: data[0].data });
       });
   }
   render() {
     return (
       <div className="App">
-        {this.state.podcasts.results === undefined
+        {this.state.movies.results === undefined
           ? "nope"
-          : this.state.podcasts.results.map((result, i) => {
+          : this.state.movies.results.map((result, i) => {
               return (
                 <div>
                   <h1 className="mediaTitle" key={i}>
-                    <Link to="/">{result.artistName}</Link>
+                  <Link to="/">{result.trackCensoredName}</Link>
                   </h1>
-                  <p className="aboutMedia">{result.collectionName}</p>
+                  <p className="aboutMedia">{result.shortDescription}</p>
                 </div>
               );
             })}

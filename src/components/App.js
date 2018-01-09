@@ -1,38 +1,24 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import Podcast from './Podcast';
+import "../styles/style.css";
+import { Link } from 'react-router-dom';
 
 export default class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      podcasts: [],
-      albums: []
-    };
-  }
-
-  componentDidMount() {
-    axios.all([
-      axios.get('https://itunes.apple.com/search?term=syntax&entity=podcast&limit=1'),
-      axios.get('https://itunes.apple.com/lookup?id=909253&entity=album')
-    ]).then((data) => {
-      this.setState({podcasts: data[0].data, albums: data[1].data})
-    });
-  }
 
   render() {
     return (
-      <div className="app">
-        <div className="app__header">
-          <div className="header__title">
-            <h1>Embrace the Media</h1>
-          </div>
-        </div>
-        <div className="app__content">
-          <div className="content__search content__search--with-full_name">
-            <Podcast {...this.state.podcasts} />
-          </div>
+      <div className="App">
+      <h1 className="mainHeader">...what I waste my time on</h1>
+      <p className="about">A visual to show what media Damon wasted his time on this week. For the folks at Embrace.io</p>
+        <div className="control-buttons">
+          <Link className="button" to="/podcast">
+            <button>Podcasts</button>
+          </Link>
+          <Link className="button" to="/movies">
+            <button>Movies</button>
+          </Link>
+          <Link className="button" to="/tv">
+            <button>TV</button>
+          </Link>
         </div>
       </div>
     );
